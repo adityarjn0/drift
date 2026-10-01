@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="A quiet little studio for generative art. Shape a current, find a palette, and make a print of your own."
+    />
+    <meta name="theme-color" content="#f4f2ec" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <title>Drift — Generative print studio</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#studio-controls">Skip to studio controls</a>
+    <div class="app-shell">
+      <header class="app-header">
+        <div class="brand" aria-label="Drift print studio">
+          <svg class="brand-mark" viewBox="0 0 40 40" aria-hidden="true">
+            <path
+              d="M6 30C6 16 16 6 30 6M12 32C12 21 21 12 32 12M18 34C18 26 26 18 34 18M24 35C24 29 29 24 35 24"
+            />
+          </svg>
+          <span class="wordmark">drift<span>.</span></span>
+          <span class="brand-description">Generative<br />print studio</span>
+        </div>
+        <button class="save-button" id="save-print" type="button">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 3v12m-4-4 4 4 4-4M4 16v4h16v-4" />
+          </svg>
+          <span>Save print</span>
+        </button>
+      </header>
+
+      <main class="studio">
+        <aside
+          class="controls"
+          id="studio-controls"
+          aria-label="Studio controls"
+        >
+          <div class="studio-intro">
+            <p class="eyebrow">A little room to explore</p>
+            <h1>
+              A study<br />
+              in <em>motion.</em>
+            </h1>
+            <p class="intro-note">Shape the lines. Find your colors.</p>
+          </div>
+
+          <section class="control-section" aria-labelledby="palette-heading">
+            <div class="section-heading">
+              <h2 id="palette-heading"><span>01</span> Palette</h2>
+            </div>
+            <div class="palette-options" id="palette-options"></div>
+          </section>
+
+          <section class="control-section" aria-labelledby="pattern-heading">
+            <div class="section-heading">
+              <h2 id="pattern-heading"><span>02</span> Pattern</h2>
+            </div>
+            <div class="pattern-options" id="pattern-options"></div>
+          </section>
+
+          <section
+            class="control-section adjustments"
+            aria-label="Fine adjustments"
+          >
+            <div class="slider-control">
+              <div class="slider-label">
+                <label for="flow">Flow</label>
+                <output id="flow-value" for="flow" aria-live="off">54</output>
+              </div>
+              <input id="flow" type="range" min="0" max="100" value="54" />
+              <div class="range-hints" aria-hidden="true">
+                <span>Gentle</span><span>Restless</span>
+              </div>
+            </div>
+            <div class="slider-control">
+              <div class="slider-label">
+                <label for="density">Line density</label>
+                <output id="density-value" for="density" aria-live="off"
+                  >64</output
+                >
+              </div>
+              <input id="density" type="range" min="20" max="100" value="64" />
+              <div class="range-hints" aria-hidden="true">
+                <span>A little space</span><span>A little more</span>
+              </div>
+            </div>
+          </section>
+
+          <form class="seed-section" id="seed-form" novalidate>
+            <label for="seed">Composition seed</label>
+            <div class="seed-input">
+              <span aria-hidden="true">№</span>
+              <input
+                id="seed"
+                type="text"
+                inputmode="numeric"
+                autocomplete="off"
+                spellcheck="false"
+                aria-describedby="seed-hint seed-error"
+                value="4219"
+              />
+              <span class="seed-symbol" aria-hidden="true">✳</span>
+            </div>
+            <p class="seed-hint" id="seed-hint">
+              Same seed, same happy accident.
+            </p>
+            <p class="error-message" id="seed-error" role="alert" hidden></p>
+            <button
+              class="new-button"
+              id="new-composition"
+              type="button"
+              aria-keyshortcuts="Alt+R"
+            >
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path
+                  d="M3 7h3c5 0 7 10 12 10h3M17 13l4 4-4 4M3 17h3c2 0 4-2 5-5m3-3c1-1 2-2 4-2h3M17 3l4 4-4 4"
+                />
+              </svg>
+              <span>New composition</span>
+              <kbd aria-hidden="true">Alt R</kbd>
+            </button>
+          </form>
+        </aside>
+
+        <section class="workspace" aria-label="Print preview">
+          <div class="workspace-heading">
+            <h2>Your canvas</h2>
+            <span class="preview-label">Live preview</span>
+          </div>
+          <div class="drawing-desk">
+            <span class="desk-note" aria-hidden="true"
+              >A moment, made tangible.</span
+            >
+            <div class="print-mount" id="print-mount">
+              <canvas
+                id="artwork"
+                width="720"
+                height="960"
+                role="img"
+                aria-label="Generative artwork composed of flowing colored lines on paper"
+              >
+                A print of flowing lines. Use the studio controls to choose its
+                palette, pattern, flow, line density, and composition seed.
+              </canvas>
+            </div>
+            <span class="desk-size" aria-hidden="true">3 : 4</span>
+          </div>
+          <div class="print-details">
+            <p id="print-title">Flow study <span>№ 004219</span></p>
+            <p
+              class="render-status"
+              id="render-status"
+              role="status"
+              aria-live="polite"
+              aria-label="Print status"
+            >
+              Drawing…
+            </p>
+          </div>
+          <p class="error-message" id="export-error" role="alert" hidden></p>
+
+          <section class="starting-points" aria-labelledby="starting-heading">
+            <div class="starting-heading">
+              <h2 id="starting-heading">Somewhere to start</h2>
+              <p>Pick a current. Make it yours.</p>
+            </div>
+            <div class="preset-options" id="preset-options"></div>
+          </section>
+        </section>
+      </main>
+
+      <footer class="app-footer">
+        <p>Made of mathematics. Finished by you.</p>
+        <p>2400 × 3200 px <span aria-hidden="true">/</span> PNG export</p>
+      </footer>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
